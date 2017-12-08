@@ -38,12 +38,22 @@
       firstTrain = newPost.firstTrain;
 
       timeCon = moment(firstTrain, "hh:mm").subtract(1, "years");
+      
+      var timeCon2 = moment(firstTrain, "hh:mm");
+      
+      console.log("timeCon: " + timeCon);
+      console.log("timeCon2: " + timeCon2);
+      
 
       now = moment();
 
       diffTime = moment().diff(moment(timeCon), "minutes");
+      
+      console.log("diffTime: " + diffTime);
 
       tRemainder = diffTime % frequency;
+      
+      console.log("tRemainder : " + tRemainder);
 
       minUntilNextArrival = frequency - tRemainder;
 
@@ -52,28 +62,39 @@
       nextArrival = moment(nextA).format("hh:mm");
 
 
-      console.log()
+      // console.log(nextArrival);
+      // console.log(tRemainder);
+      // console.log("this " + frequency);
+
+
+
+
+      $('#myTable').last().append($("<tr>" + "<td>" + num++ + "</td>" +
+										  "<td>" + name + "</td>" + 
+											"<td>" + destination + "</td>" +
+											"<td>" + frequency + "</td>" +
+											"<td>" + nextArrival + "</td>" +
+											"<td>" + minUntilNextArrival + "</td>" + 
+										// 	"<td>" + "string" + "</td>" + 
+									"</tr>"));
 
 
 
 
 
 
-
-
-
-      var a = moment().to(timeCon, "mm");
+      // var a = moment().to(timeCon, "mm");
 
       // var b = moment().minute(a);
-      var b = moment();
+      // var b = moment();
 
-      var c = b.diff(timeCon, "minutes");
+      // var c = b.diff(timeCon, "minutes");
 
-      var aa = moment(timeCon).add(frequency, "m")
+      // var aa = moment(timeCon).add(frequency, "m")
 
-      var bb = moment(aa, "mm");
+      // var bb = moment(aa, "mm");
 
-      console.log("this: " + bb);
+      // console.log("this: " + bb);
 
 
 
@@ -81,7 +102,7 @@
       
 
 
-      console.log(timeCon);
+      // console.log(timeCon);
       // console.log(b);
       // console.log(-c);
 
