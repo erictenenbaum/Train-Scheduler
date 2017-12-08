@@ -1,3 +1,4 @@
+  console.log("hello");
 
   // Initialize Firebase
   var config = {
@@ -18,6 +19,12 @@
   var nextArrival;
   var minAway;
   var firstTrain;
+  var now;
+  var timeCon;
+  var diffTime;
+  var tRemainder;
+  var minUntilNextArrival;
+  var nextA;
 
   var num = 2;
 
@@ -25,6 +32,63 @@
       var newPost = snapshot.val();
       console.log(newPost);
 
+      name = newPost.name;
+      destination = newPost.destination;
+      frequency = newPost.frequency;
+      firstTrain = newPost.firstTrain;
+
+      timeCon = moment(firstTrain, "hh:mm").subtract(1, "years");
+
+      now = moment();
+
+      diffTime = moment().diff(moment(timeCon), "minutes");
+
+      tRemainder = diffTime % frequency;
+
+      minUntilNextArrival = frequency - tRemainder;
+
+      nextA = moment().add(minUntilNextArrival, "minutes");
+
+      nextArrival = moment(nextA).format("hh:mm");
+
+
+      console.log()
+
+
+
+
+
+
+
+
+
+      var a = moment().to(timeCon, "mm");
+
+      // var b = moment().minute(a);
+      var b = moment();
+
+      var c = b.diff(timeCon, "minutes");
+
+      var aa = moment(timeCon).add(frequency, "m")
+
+      var bb = moment(aa, "mm");
+
+      console.log("this: " + bb);
+
+
+
+
+      
+
+
+      console.log(timeCon);
+      // console.log(b);
+      // console.log(-c);
+
+      // start trying to figure out when the first train takes off, then add the frequency and roll over that ever duration
+      // of the frequency. So if the first train takes off at noon and runs ever 30 minutes and it is now 2:40
+      // the next train will take off in 20 minutes. and the next arrival will be 3:00. 
+      
       
 
 
@@ -39,7 +103,7 @@
     firstTrain = $("#firstTrainInput").val().trim();
     frequency = $("#frequencyInput").val().trim();
 
-      database.push({
+      database.ref().push({
         name: name,
         destination: destination,
         firstTrain: firstTrain,
