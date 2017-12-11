@@ -16,17 +16,16 @@
   var name;
   var destination;
   var frequency;
-  var nextArrival;
-  var minAway;
+  var nextArrival;  
   var firstTrain;
   var now;
-  var timeCon;
-  var diffTime;
-  var tRemainder;
+  var firstTMoment;
+  var timeDiffMoment;
+  var leftoverMin;
   var minUntilNextArrival;
   var nextA;
 
-  var num = 2;
+  var num = 1;
 
   database.ref().on("child_added", function(snapshot, PrevChildKey) {
       var newPost = snapshot.val();
@@ -37,37 +36,19 @@
       frequency = newPost.frequency;
       firstTrain = newPost.firstTrain;
 
-      timeCon = moment(firstTrain, "hh:mm").subtract(1, "years");
-      
-      var timeCon2 = moment(firstTrain, "hh:mm");
-      
-      console.log("timeCon: " + timeCon);
-      console.log("timeCon2: " + timeCon2);
-      
-
+      firstTMoment = moment(firstTrain, "hh:mm").subtract(1, "years");        
+      console.log(firstTMoment);  
       now = moment();
 
-      diffTime = moment().diff(moment(timeCon), "minutes");
-      
-      console.log("diffTime: " + diffTime);
+      timeDiffMoment = moment().diff(moment(firstTMoment), "minutes");      
+      console.log(timeDiffMoment);
 
-      tRemainder = diffTime % frequency;
-      
-      console.log("tRemainder : " + tRemainder);
+      leftoverMin = timeDiffMoment % frequency;  
+      console.log(leftoverMin)
 
-      minUntilNextArrival = frequency - tRemainder;
-
+      minUntilNextArrival = frequency - leftoverMin;
       nextA = moment().add(minUntilNextArrival, "minutes");
-
-      nextArrival = moment(nextA).format("hh:mm");
-
-
-      // console.log(nextArrival);
-      // console.log(tRemainder);
-      // console.log("this " + frequency);
-
-
-
+      nextArrival = moment(nextA).format("hh:mm"); 
 
       $('#myTable').last().append($("<tr>" + "<td>" + num++ + "</td>" +
 										  "<td>" + name + "</td>" + 
@@ -75,46 +56,8 @@
 											"<td>" + frequency + "</td>" +
 											"<td>" + nextArrival + "</td>" +
 											"<td>" + minUntilNextArrival + "</td>" + 
-										// 	"<td>" + "string" + "</td>" + 
-									"</tr>"));
-
-
-
-
-
-
-      // var a = moment().to(timeCon, "mm");
-
-      // var b = moment().minute(a);
-      // var b = moment();
-
-      // var c = b.diff(timeCon, "minutes");
-
-      // var aa = moment(timeCon).add(frequency, "m")
-
-      // var bb = moment(aa, "mm");
-
-      // console.log("this: " + bb);
-
-
-
-
-      
-
-
-      // console.log(timeCon);
-      // console.log(b);
-      // console.log(-c);
-
-      // start trying to figure out when the first train takes off, then add the frequency and roll over that ever duration
-      // of the frequency. So if the first train takes off at noon and runs ever 30 minutes and it is now 2:40
-      // the next train will take off in 20 minutes. and the next arrival will be 3:00. 
-      
-      
-
-
-
-  });
+											"</tr>"));  
+     });
 
 
   $("#submit-button").on("click", function(){
